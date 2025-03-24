@@ -7,7 +7,7 @@ const ActivityLegend = (props) => {
         flexDirection: "row",
         gap: "40px",
         justifyContent: "flex-end",
-        paddingBottom: "30px",
+        marginBottom: "70px",
       }}
     >
       {payload.map((entry, index) => (
