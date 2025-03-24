@@ -1,0 +1,12 @@
+@use "../../styles/utils/mixins" as *;
+@use "../../styles/utils/variables" as *;
+
+h1{
+  font-size:48px;
+  margin-bottom: 20px;
+}
+
+h2{
+  font-size:18px;
+  font-weight:400;
+}

@@ -1,0 +1,35 @@
+@use "../../styles/utils/mixins" as *;
+@use "../../styles/utils/variables" as *;
+
+h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.userFirstName {
+  color: red;
+}
+
+.container__dashboard{
+  display: flex;
+  flex-direction: row;
+  margin-top:80px;
+
+  &__charts{
+    display:flex;
+    flex-direction:row;
+
+    &__dailyActivity{
+      background: #fbfbfb;
+      border-radius: 5px;
+      padding:20px;
+      width:800px;
+      height:400px;
+    }
+  }
+}

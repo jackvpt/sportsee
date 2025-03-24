@@ -1,0 +1,40 @@
+@use "../../styles/utils/mixins" as *;
+
+header {
+  max-width: 1440px;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  // justify-content: space-between;
+  align-items: center;
+  background-color: black;
+
+
+
+  img {
+    width: 180px;
+    height: 60px;
+    margin-right:20px;
+  }
+}
+
+.navbar {
+  width:100%;
+  padding: 0 80px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+
+  &__link,
+  &__link--active {
+    font-size: 24px;
+    text-decoration: none;
+    color: white;
+  }
+
+  // &__link--active {
+  //   text-decoration: underline;
+  // }
+}
