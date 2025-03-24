@@ -29,7 +29,7 @@ const ChartActivity = ({ data }) => {
             y="15"
             textAnchor="start"
             dominantBaseline="middle"
-            style={{ fontSize: "16px", fontWeight: "bold", fill: "#20253A" }}
+            style={{ fontSize: "16px", fill: "#20253A" }}
           >
             Activité quotidienne
           </text>

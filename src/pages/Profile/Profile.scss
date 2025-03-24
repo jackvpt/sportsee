@@ -15,21 +15,33 @@ h2 {
   color: red;
 }
 
-.container__dashboard{
+.container__dashboard {
   display: flex;
   flex-direction: row;
-  margin-top:80px;
+  margin-top: 80px;
 
-  &__charts{
-    display:flex;
-    flex-direction:row;
+  &__charts {
+    display: flex;
+    flex-direction: column;
 
-    &__dailyActivity{
+    &__dailyActivity {
       background: #fbfbfb;
       border-radius: 5px;
-      padding:20px;
-      width:800px;
-      height:400px;
+      padding: 20px;
+      width: 800px;
+      height: 400px;
+    }
+
+    &__miniCharts {
+      display: flex;
+      flex-direction: row;
+
+      &__averageDuration {
+        width: 33%;
+        height: 280px;
+        background: red;
+        border-radius: 5px;
+      }
     }
   }
 }

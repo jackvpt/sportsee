@@ -3,6 +3,7 @@ import "./Profile.scss"
 import { useParams, Navigate } from "react-router"
 import { useFetch } from "../../utils/useFetch"
 import ChartActivity from "../../components/ChartActivity/ChartActivity"
+import ChartAverageDuration from "../../components/ChartAverageDuration/ChartAverageDuration"
 
 const Profile = () => {
   // Get id from Home page
@@ -67,8 +68,6 @@ const Profile = () => {
     session = sessions.find((element) => element.userId === user.id)
   }
 
-  console.log(activity, performance, session)
-
   const userInfos = user.userInfos
 
   return (
@@ -84,6 +83,10 @@ const Profile = () => {
         <div className="container__dashboard__charts">
           <div className="container__dashboard__charts__dailyActivity">
             <ChartActivity data={activity} />
+          </div>
+          <div className="container__dashboard__charts__miniCharts"></div>
+          <div className="container__dashboard__charts__miniCharts__averageDuration">
+            <ChartAverageDuration data={session.sessions} />
           </div>
         </div>
         <div className="container__dashboard__keyNumbers"></div>
