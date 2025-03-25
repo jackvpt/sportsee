@@ -5,6 +5,7 @@ import { useFetch } from "../../utils/useFetch"
 import ChartActivity from "../../components/ChartActivity/ChartActivity"
 import ChartAverageDuration from "../../components/ChartAverageDuration/ChartAverageDuration"
 import ChartPerformances from "../../components/ChartPerformances/ChartPerformances"
+import ChartScore from "../../components/ChartScore/ChartScore"
 
 const Profile = () => {
   // Get id from Home page
@@ -91,6 +92,9 @@ const Profile = () => {
             </div>
             <div className="container__dashboard__charts__miniCharts__performances">
               <ChartPerformances data={performance} />
+            </div>
+            <div className="container__dashboard__charts__miniCharts__score">
+              <ChartScore data={user.score} />
             </div>
           </div>
         </div>
