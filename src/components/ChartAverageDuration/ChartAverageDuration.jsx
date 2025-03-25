@@ -8,7 +8,6 @@ import {
   Rectangle
 } from "recharts"
 import PropTypes from "prop-types"
-
 import "./ChartAverageDuration.scss"
 import AverageDurationToolTip from "../AverageDurationToolTip/AverageDurationToolTip"
 
@@ -32,35 +31,43 @@ const ChartAverageDuration = ({ data }) => {
   }
 
   const CustomCursor = (props) => {
-    const { points, width, height, stroke } = props
-    const { x, y } = points[0]
-    const { x1, y1 } = points[1]
+    const { points, width } = props
+    const { x } = points[0]
     console.log(props)
     return (
       <Rectangle
         fill="rgba(0,0,0,0.1)"
-        stroke="red"
         x={x}
-        y={y}
-        width={width}
+        y={-20}
+        width={width+100}
         height={1000}
       />
     )
   }
+
+  const CustomActiveDot = (props) => {
+    const { cx, cy } = props;
+    return (
+      <g>
+        <circle cx={cx} cy={cy} r={8} fill="rgb(255,255,255,0.2)" stroke="none" />
+        <circle cx={cx} cy={cy} r={4} fill="white" stroke="none" />
+      </g>
+    );
+  };
 
   const title = "Durée moyenne des\nsessions"
   const lines = title.split("\n")
   return (
     <>
       <ResponsiveContainer width="100%" height="100%" className={"center"}>
-        <LineChart data={data} margin={{top:0,right:5, bottom: 20,left:5 }}>
+        <LineChart data={data} margin={{top:40,right:15, bottom: 25,left:15 }}>
           <text
             textAnchor="start"
             dominantBaseline="middle"
             style={{ fontSize: "15px", fill: "rgba(255,255,255,0.5)" }}
           >
             {lines.map((line, index) => (
-              <tspan key={index} x="20" y="20" dy={index === 0 ? 0 : 20}>
+              <tspan key={index} x="30" y="30" dy={index === 0 ? 0 : 20}>
                 {line}
               </tspan>
             ))}
@@ -70,11 +77,13 @@ const ChartAverageDuration = ({ data }) => {
             dataKey="sessionLength"
             stroke="url(#colorUv)"
             strokeWidth={2}
-            activeDot={{
-              stroke: "#FFF",
-              strokeWidth: 4,
-              r: 2,
-            }}
+            // activeDot={{
+            //   stroke: "#FFF",
+            //   strokeWidth: 4,
+            //   r: 2,
+            // }}
+            activeDot={<CustomActiveDot />}
+
             dot={false}
           />
           <XAxis
@@ -86,9 +95,7 @@ const ChartAverageDuration = ({ data }) => {
               fontSize: "12px",
             }}
             tickFormatter={formatLabel}
-            tickMargin={0}
-            // scale="point"
-            // interval="preserveStartEnd"
+            tickMargin={15}
           />
           <Tooltip
             content={<AverageDurationToolTip />}
