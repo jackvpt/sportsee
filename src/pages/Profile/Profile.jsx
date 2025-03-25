@@ -6,6 +6,7 @@ import ChartActivity from "../../components/ChartActivity/ChartActivity"
 import ChartAverageDuration from "../../components/ChartAverageDuration/ChartAverageDuration"
 import ChartPerformances from "../../components/ChartPerformances/ChartPerformances"
 import ChartScore from "../../components/ChartScore/ChartScore"
+import KeyDataCard from "../../components/KeyDataCard/KeyDataCard"
 
 const Profile = () => {
   // Get id from Home page
@@ -72,6 +73,8 @@ const Profile = () => {
 
   const userInfos = user.userInfos
 
+  console.log("user.score :>> ", user)
+
   return (
     <article>
       <div>
@@ -81,25 +84,48 @@ const Profile = () => {
         </h1>
         <h2>Félicitation ! Vous avez explosé vos objectifs hier 👏</h2>
       </div>
-      <div className="container__dashboard">
+      <section className="container__dashboard">
         <div className="container__dashboard__charts">
-          <div className="container__dashboard__charts__dailyActivity">
+          <div className="dailyActivity">
             <ChartActivity data={activity} />
           </div>
-          <div className="container__dashboard__charts__miniCharts">
-            <div className="container__dashboard__charts__miniCharts__averageDuration">
+          <div className="miniCharts">
+            <div className="miniCharts__chart averageDuration">
               <ChartAverageDuration data={session.sessions} />
             </div>
-            <div className="container__dashboard__charts__miniCharts__performances">
+            <div className="miniCharts__chart performances">
               <ChartPerformances data={performance} />
             </div>
-            <div className="container__dashboard__charts__miniCharts__score">
-              <ChartScore data={user.score} />
+            <div className="miniCharts__chart score">
+              <ChartScore
+                data={user.todayScore ? user.todayScore : user.score}
+              />
             </div>
           </div>
         </div>
-        <div className="container__dashboard__keyNumbers"></div>
-      </div>
+        <div className="container__dashboard__keyDatas">
+          <KeyDataCard
+            title="Calories"
+            value={user.keyData.calorieCount}
+            unit="kCal"
+          />
+          <KeyDataCard
+            title="Proteines"
+            value={user.keyData.proteinCount}
+            unit="g"
+          />
+          <KeyDataCard
+            title="Glucides"
+            value={user.keyData.carbohydrateCount}
+            unit="g"
+          />
+          <KeyDataCard
+            title="Lipides"
+            value={user.keyData.lipidCount}
+            unit="g"
+          />
+        </div>
+      </section>
     </article>
   )
 }

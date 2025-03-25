@@ -1,0 +1,28 @@
+.container__keyDataCard {
+  width: 260px;
+  height: 120px;
+  background-color: #fbfbfb;
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+
+  &__data {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    p {
+      color: #282d30;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    h4 {
+      color: #74798c;
+      font-size: 14px;
+    }
+  }
+}
