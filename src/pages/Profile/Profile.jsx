@@ -4,6 +4,7 @@ import { useParams, Navigate } from "react-router"
 import { useFetch } from "../../utils/useFetch"
 import ChartActivity from "../../components/ChartActivity/ChartActivity"
 import ChartAverageDuration from "../../components/ChartAverageDuration/ChartAverageDuration"
+import ChartPerformances from "../../components/ChartPerformances/ChartPerformances"
 
 const Profile = () => {
   // Get id from Home page
@@ -84,9 +85,13 @@ const Profile = () => {
           <div className="container__dashboard__charts__dailyActivity">
             <ChartActivity data={activity} />
           </div>
-          <div className="container__dashboard__charts__miniCharts"></div>
-          <div className="container__dashboard__charts__miniCharts__averageDuration">
-            <ChartAverageDuration data={session.sessions} />
+          <div className="container__dashboard__charts__miniCharts">
+            <div className="container__dashboard__charts__miniCharts__averageDuration">
+              <ChartAverageDuration data={session.sessions} />
+            </div>
+            <div className="container__dashboard__charts__miniCharts__performances">
+              <ChartPerformances data={performance} />
+            </div>
           </div>
         </div>
         <div className="container__dashboard__keyNumbers"></div>

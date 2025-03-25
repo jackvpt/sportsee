@@ -8,7 +8,6 @@ import {
   Rectangle
 } from "recharts"
 import PropTypes from "prop-types"
-import "./ChartAverageDuration.scss"
 import AverageDurationToolTip from "../AverageDurationToolTip/AverageDurationToolTip"
 
 /**

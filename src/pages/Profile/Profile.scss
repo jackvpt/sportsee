@@ -23,6 +23,7 @@ h2 {
   &__charts {
     display: flex;
     flex-direction: column;
+    gap:20px;
 
     &__dailyActivity {
       background: #fbfbfb;
@@ -35,6 +36,7 @@ h2 {
     &__miniCharts {
       display: flex;
       flex-direction: row;
+      gap:20px;
 
       &__averageDuration {
         width: 33%;
@@ -42,6 +44,14 @@ h2 {
         background: red;
         border-radius: 5px;
       }
+      
+      &__performances{
+        width:33%;
+        height:280px;
+        background-color: #282D30;;
+        border-radius: 5px;
+      }
+    
     }
   }
 }
