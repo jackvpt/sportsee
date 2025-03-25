@@ -1,5 +1,4 @@
-@use "../../styles/utils/mixins" as *;
-@use "../../styles/utils/variables" as *;
+
 
 h1 {
   font-size: 48px;
@@ -18,7 +17,7 @@ h2 {
 .container__dashboard {
   display: flex;
   flex-direction: row;
-  gap:30px;
+  justify-content: space-between;
   margin-top: 80px;
 
   &__charts {
@@ -41,7 +40,7 @@ h2 {
 
       &__chart {
         width: 33%;
-        height: 280px;
+        height: 260px;
         border-radius: 5px;
       }
 

@@ -73,8 +73,6 @@ const Profile = () => {
 
   const userInfos = user.userInfos
 
-  console.log("user.score :>> ", user)
-
   return (
     <article>
       <div>

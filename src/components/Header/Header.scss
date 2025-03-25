@@ -5,27 +5,25 @@ header {
   padding: 20px;
   display: flex;
   flex-direction: row;
-  // justify-content: space-between;
   align-items: center;
   background-color: black;
-
+  box-shadow: 0px 4px 4px 0px #00000040;
 
 
   img {
     width: 180px;
     height: 60px;
-    margin-right:20px;
+    margin-right: 20px;
   }
 }
 
 .navbar {
-  width:100%;
+  width: 100%;
   padding: 0 80px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-
 
   &__link,
   &__link--active {

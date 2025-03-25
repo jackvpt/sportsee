@@ -13,8 +13,6 @@ export default function Home() {
 
   const users = fetchResult.data
 
-  console.log("users :>> ", users)
-
   return (
     <div>
       <h1>Bienvenue</h1>
