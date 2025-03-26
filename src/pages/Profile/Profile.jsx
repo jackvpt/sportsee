@@ -1,7 +1,9 @@
 import React from "react"
 import "./Profile.scss"
+import { useState, useEffect } from "react"
 import { useParams, Navigate } from "react-router"
 import { useFetch } from "../../utils/useFetch"
+import { fetchUsers, fetchSessionsByUserId } from "../../services/api"
 import ChartActivity from "../../components/ChartActivity/ChartActivity"
 import ChartAverageDuration from "../../components/ChartAverageDuration/ChartAverageDuration"
 import ChartPerformances from "../../components/ChartPerformances/ChartPerformances"
@@ -10,46 +12,81 @@ import KeyDataCard from "../../components/KeyDataCard/KeyDataCard"
 
 const Profile = () => {
   // Get id from Home page
-  const { userId } = useParams()
+  let { userId } = useParams()
+  userId = Number(userId)
 
+  const [users, setUsers] = useState([])
+  const [sessions, setSessions] = useState([])
+
+  const [isLoading, setIsLoading] = useState(true)
+  const [isError, setIsError] = useState(false)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true)
+      setIsError(false)
+  
+      try {
+        const [usersData, sessionsData] = await Promise.all([
+          fetchUsers(),
+          fetchSessionsByUserId(userId),
+        ])
+        setUsers(usersData)
+        setSessions(sessionsData.sessions)
+      } catch (error) {
+        setIsError(true)
+        alert(error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+  
+    fetchData()
+  }, [userId])
   // Fetch call returns 'data', 'isLoading' and 'error'
-  const fetchUsers = useFetch("/__mocks__/users.json")
+  // const fetchUsers = useFetch("/__mocks__/users.json")
   const fetchActivities = useFetch("/__mocks__/activities.json")
   const fetchPerformances = useFetch("/__mocks__/performances.json")
-  const fetchSessions = useFetch("/__mocks__/sessions.json")
+  // const fetchSessions = useFetch("/__mocks__/sessions.json")
+  
+  if (isLoading) return <p>Chargement des utilisateurs...</p>
+  if (isError)
+    return (
+  <p>❌ Une erreur est survenue lors du chargement des utilisateurs.</p>
+)
 
   // Check if fetch isLoading or if error
   if (
-    fetchUsers.isLoading ||
+    // fetchUsers.isLoading ||
     fetchActivities.isLoading ||
-    fetchPerformances.isLoading ||
-    fetchSessions.isLoading
+    fetchPerformances.isLoading 
+    // fetchSessions.isLoading
   ) {
     return
   }
 
   if (
-    fetchUsers.error ||
+    // fetchUsers.error ||
     fetchActivities.error ||
-    fetchPerformances.error ||
-    fetchSessions.error
+    fetchPerformances.error 
+    // fetchSessions.error
   ) {
     return <Navigate to="*" /> // Navigate to Error page
   }
 
   // Get data from fetch
-  const users = fetchUsers.data
+  // const users = fetchUsers.data
   let user
   const activities = fetchActivities.data
   let activity
   const performances = fetchPerformances.data
   let performance
-  const sessions = fetchSessions.data
-  let session
+  // const sessions = fetchSessions.data
+  // let session
 
   // Get user based on id
   if (users) {
-    user = users.find((element) => String(element.id) === userId)
+    user = users.find((element) => element.id === userId)
   }
 
   if (!user) {
@@ -67,18 +104,18 @@ const Profile = () => {
   }
 
   // Get session based on user id
-  if (sessions) {
-    session = sessions.find((element) => element.userId === user.id)
-  }
+  // if (sessions) {
+  //   session = sessions.find((element) => element.userId === userId)
+  // }
 
-  const userInfos = user.userInfos
+
 
   return (
     <article>
       <div>
         <h1>
           Bonjour
-          <span className="userFirstName"> {userInfos.firstName}</span>
+          <span className="userFirstName"> {user.firstName}</span>
         </h1>
         <h2>Félicitation ! Vous avez explosé vos objectifs hier 👏</h2>
       </div>
@@ -89,39 +126,25 @@ const Profile = () => {
           </div>
           <div className="miniCharts">
             <div className="miniCharts__chart averageDuration">
-              <ChartAverageDuration data={session.sessions} />
+              <ChartAverageDuration data={sessions} />
             </div>
             <div className="miniCharts__chart performances">
               <ChartPerformances data={performance} />
             </div>
             <div className="miniCharts__chart score">
-              <ChartScore
-                data={user.todayScore ? user.todayScore : user.score}
-              />
+              <ChartScore data={user.score} />
             </div>
           </div>
         </div>
         <div className="container__dashboard__keyDatas">
-          <KeyDataCard
-            title="Calories"
-            value={user.keyData.calorieCount}
-            unit="kCal"
-          />
-          <KeyDataCard
-            title="Proteines"
-            value={user.keyData.proteinCount}
-            unit="g"
-          />
+          <KeyDataCard title="Calories" value={user.calorieCount} unit="kCal" />
+          <KeyDataCard title="Proteines" value={user.proteinCount} unit="g" />
           <KeyDataCard
             title="Glucides"
-            value={user.keyData.carbohydrateCount}
+            value={user.carbohydrateCount}
             unit="g"
           />
-          <KeyDataCard
-            title="Lipides"
-            value={user.keyData.lipidCount}
-            unit="g"
-          />
+          <KeyDataCard title="Lipides" value={user.lipidCount} unit="g" />
         </div>
       </section>
     </article>

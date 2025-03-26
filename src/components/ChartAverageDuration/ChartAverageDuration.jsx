@@ -32,7 +32,6 @@ const ChartAverageDuration = ({ data }) => {
   const CustomCursor = (props) => {
     const { points, width } = props
     const { x } = points[0]
-    console.log(props)
     return (
       <Rectangle
         fill="rgba(0,0,0,0.1)"
@@ -76,13 +75,7 @@ const ChartAverageDuration = ({ data }) => {
             dataKey="sessionLength"
             stroke="url(#colorUv)"
             strokeWidth={2}
-            // activeDot={{
-            //   stroke: "#FFF",
-            //   strokeWidth: 4,
-            //   r: 2,
-            // }}
             activeDot={<CustomActiveDot />}
-
             dot={false}
           />
           <XAxis
