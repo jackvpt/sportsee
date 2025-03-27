@@ -1,5 +1,4 @@
 import React from "react"
-import "./ChartActivity.scss"
 import {
   XAxis,
   Tooltip,
@@ -14,6 +13,14 @@ import ActivityToolTip from "../ActivityToolTip/ActivityToolTip"
 import ActivityLegend from "../ActivityLegend/ActivityLegend"
 import PropTypes from "prop-types"
 
+/**
+ * ChartActivity component - Displays a bar chart representing daily activity data.
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {Array} props.data - The dataset containing activity details
+ * @returns {JSX.Element} A bar chart visualizing user activity
+ */
 const ChartActivity = ({ data }) => {
   if (!data || data.length === 0) {
     return <p>Aucune donnée disponible.</p>
@@ -21,7 +28,6 @@ const ChartActivity = ({ data }) => {
 
   return (
     <>
-      {/* <h3>Activité quotidienne</h3> */}
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data} barSize={7} barGap={8}>
           <text
@@ -87,9 +93,7 @@ const ChartActivity = ({ data }) => {
 }
 
 ChartActivity.propTypes = {
-  /**
-   * Data to be displayed in the chart
-   */
+  //Data to be displayed in the chart
   data: PropTypes.arrayOf(
     PropTypes.shape({
       day: PropTypes.string.isRequired,

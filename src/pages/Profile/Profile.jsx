@@ -1,7 +1,6 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import "./Profile.scss"
-import { useState, useEffect } from "react"
-import { useParams, Navigate } from "react-router"
+import { useParams, Navigate } from "react-router-dom"
 import {
   fetchUserByUserID,
   fetchSessionsByUserId,
@@ -14,6 +13,12 @@ import ChartPerformances from "../../components/ChartPerformances/ChartPerforman
 import ChartScore from "../../components/ChartScore/ChartScore"
 import KeyDataCard from "../../components/KeyDataCard/KeyDataCard"
 
+/**
+ * Profile page displaying user's performance, activity, and nutrition data.
+ *
+ * @component
+ * @returns {JSX.Element} The profile page with charts and key data.
+ */
 const Profile = () => {
   // Get id from Home page
   let { userId } = useParams()
@@ -46,7 +51,7 @@ const Profile = () => {
         setPerformances(performancesData)
       } catch (error) {
         setIsError(true)
-        alert(error)
+        console.error("Erreur de chargement des données :", error)
       } finally {
         setIsLoading(false)
       }
@@ -55,15 +60,9 @@ const Profile = () => {
     fetchData()
   }, [userId])
 
-  if (isLoading) return <p>Chargement des utilisateurs...</p>
-  if (isError)
-    return (
-      <p>❌ Une erreur est survenue lors du chargement des utilisateurs.</p>
-    )
-
-  if (!user) {
-    return <Navigate to="*" /> // Navigate to Error page
-  }
+  if (isLoading) return <p>⏳ Chargement des données...</p>
+  if (isError) return <p>❌ Une erreur est survenue lors du chargement.</p>
+  if (!user) return <Navigate to="*" /> // Navigate to Error page if user not found
 
   return (
     <article>

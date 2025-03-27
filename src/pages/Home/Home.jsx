@@ -1,29 +1,32 @@
 import "./Home.scss"
 import React from "react"
-import { Link } from "react-router"
+import { Link } from "react-router-dom"
 
+/**
+ * Home page displaying a welcome message and a list of user profiles.
+ *
+ * @category Pages
+ * @component
+ * @returns {JSX.Element} The Home page component with user profile links.
+ */
 export default function Home() {
-  // const users = fetchResult.data
+  // Example user data (should be replaced by API fetch results)
   const users = [
-    {
-      id: 12,
-      firstName: "Karl",
-    },
-    {
-      id: 18,
-      firstName: "Cecilia",
-    },
+    { id: 12, firstName: "Karl" },
+    { id: 18, firstName: "Cecilia" },
   ]
 
   return (
-    <div>
+    <section className="home">
       <h1>Bienvenue</h1>
-      <h2>Choisissez le profil:</h2>
-      {users.map((user, index) => (
-        <Link key={index} to={`/profile/${user.id}`}>
-          <div className="container__user">{user.firstName}</div>
-        </Link>
-      ))}
-    </div>
+      <h2>Choisissez le profil :</h2>
+      <div className="home__users">
+        {users.map((user) => (
+          <Link key={user.id} to={`/profile/${user.id}`} className="home__user-link">
+            <div className="home__user">{user.firstName}</div>
+          </Link>
+        ))}
+      </div>
+    </section>
   )
 }

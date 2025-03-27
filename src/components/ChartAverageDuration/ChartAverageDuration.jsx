@@ -5,30 +5,39 @@ import {
   Tooltip,
   YAxis,
   ResponsiveContainer,
-  Rectangle
+  Rectangle,
 } from "recharts"
 import PropTypes from "prop-types"
 import AverageDurationToolTip from "../AverageDurationToolTip/AverageDurationToolTip"
 
 /**
- * Render a LineChart using Recharts
+ * ChartAverageDuration component - Displays a line chart showing the average session duration per day.
  *
- * @category Components
  * @component
- * @returns { React.Component } A React component
+ * @param {Object} props - Component props
+ * @param {Array} props.data - Array of session duration data
+ * @returns {JSX.Element} A line chart visualizing the average session duration
  */
 const ChartAverageDuration = ({ data }) => {
+  /**
+   * Formats the X-axis labels based on the day number.
+   *
+   * @param {number} value - Day number (1-7)
+   * @returns {string} Corresponding day abbreviation
+   */
   const formatLabel = (value) => {
-    if (value === 1) return "L"
-    if (value === 2) return "M"
-    if (value === 3) return "M"
-    if (value === 4) return "J"
-    if (value === 5) return "V"
-    if (value === 6) return "S"
-    if (value === 7) return "D"
-    return value
+    const days = ["", "L", "M", "M", "J", "V", "S", "D"]
+    return days[value] || value
   }
 
+  /**
+   * Custom cursor component for the chart.
+   *
+   * @param {Object} props - Cursor properties
+   * @param {Array} props.points - Data points
+   * @param {number} props.width - Cursor width
+   * @returns {JSX.Element} A customized cursor rectangle
+   */
   const CustomCursor = (props) => {
     const { points, width } = props
     const { x } = points[0]
@@ -37,28 +46,46 @@ const ChartAverageDuration = ({ data }) => {
         fill="rgba(0,0,0,0.1)"
         x={x}
         y={-20}
-        width={width+100}
+        width={width + 100}
         height={1000}
       />
     )
   }
 
+  /**
+   * Custom active dot component for the chart.
+   *
+   * @param {Object} props - Dot properties
+   * @param {number} props.cx - X-coordinate
+   * @param {number} props.cy - Y-coordinate
+   * @returns {JSX.Element} A customized dot
+   */
   const CustomActiveDot = (props) => {
-    const { cx, cy } = props;
+    const { cx, cy } = props
     return (
       <g>
-        <circle cx={cx} cy={cy} r={8} fill="rgb(255,255,255,0.2)" stroke="none" />
+        <circle
+          cx={cx}
+          cy={cy}
+          r={8}
+          fill="rgb(255,255,255,0.2)"
+          stroke="none"
+        />
         <circle cx={cx} cy={cy} r={4} fill="white" stroke="none" />
       </g>
-    );
-  };
+    )
+  }
 
   const title = "Durée moyenne des\nsessions"
   const lines = title.split("\n")
   return (
     <>
       <ResponsiveContainer width="100%" height="100%" className={"center"}>
-        <LineChart data={data} margin={{top:40,right:15, bottom: 25,left:15 }}>
+        <LineChart
+          data={data}
+          margin={{ top: 40, right: 15, bottom: 25, left: 15 }}
+        >
+          {/* Chart Title */}
           <text
             textAnchor="start"
             dominantBaseline="middle"
@@ -70,6 +97,8 @@ const ChartAverageDuration = ({ data }) => {
               </tspan>
             ))}
           </text>
+
+          {/* Line Chart */}
           <Line
             type="natural"
             dataKey="sessionLength"
@@ -78,6 +107,8 @@ const ChartAverageDuration = ({ data }) => {
             activeDot={<CustomActiveDot />}
             dot={false}
           />
+
+          {/* X Axis */}
           <XAxis
             dataKey="day"
             axisLine={false}
@@ -89,11 +120,17 @@ const ChartAverageDuration = ({ data }) => {
             tickFormatter={formatLabel}
             tickMargin={15}
           />
+
+          {/* Tooltip */}
           <Tooltip
             content={<AverageDurationToolTip />}
             cursor={<CustomCursor />}
           />
+
+          {/* Y Axis */}
           <YAxis hide domain={["dataMin-10", "dataMax+10"]} />
+
+          {/* Gradient for Line */}
           <defs>
             <linearGradient id="colorUv" x1="0%" y1="0" x2="100%" y2="0">
               <stop offset="0%" stopColor="rgba(255, 255, 255, 0.3)" />
@@ -110,9 +147,7 @@ const ChartAverageDuration = ({ data }) => {
 }
 
 ChartAverageDuration.propTypes = {
-  /**
-   * Data to be displayed in the chart
-   */
+  // The dataset containing session duration data
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 

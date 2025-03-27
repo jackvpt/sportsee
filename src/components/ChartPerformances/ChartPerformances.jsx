@@ -10,39 +10,43 @@ import {
 import PropTypes from "prop-types"
 
 /**
- * Render a RadarChart using Recharts
+ * Renders a RadarChart displaying user performance metrics.
  *
  * @category Components
  * @component
- * @returns { React.Component } A React component
+ * @param {Object} props - The component props.
+ * @param {Object} props.data - The dataset to be visualized, containing performance data.
+ * @returns {React.Component} A React component rendering the chart.
  */
 const ChartPerformances = ({ data }) => {
   /**
-   * Function to render the labels of the chart in a Text component
+   * Translates performance metric labels to French.
    *
-   * @param { Object } payload - The payload of the labels
-   * @param { Number } x - The x position of the label
-   * @param { Number } y - The y position of the label
-   * @param { Number } cx - The x position of the center of the label
-   * @param { Number } cy - The y position of the center of the label
-   * @param { Object } rest - The rest of the props of the label
-   * @returns A function that returns a Text component
+   * @param {string} value - The English label of the metric.
+   * @returns {string} The translated label.
+   */
+  const formatLabel = (value) => {
+    const labels = {
+      Energy: "Energie",
+      Strength: "Force",
+      Speed: "Vitesse",
+      Intensity: "Intensité",
+    }
+    return labels[value] || value
+  }
+
+  /**
+   * Custom label rendering for the RadarChart.
+   *
+   * @param {Object} props - Label properties.
+   * @param {Object} props.payload - The label payload.
+   * @param {number} props.x - The X-coordinate of the label.
+   * @param {number} props.y - The Y-coordinate of the label.
+   * @param {number} props.cx - The X-coordinate of the chart center.
+   * @param {number} props.cy - The Y-coordinate of the chart center.
+   * @returns {React.Component} A formatted label component.
    */
   const renderPolarAngleAxis = ({ payload, x, y, cx, cy, ...rest }) => {
-    /**
-     * Function to translate the labels of the chart
-     *
-     * @param { String } value - The value of the label
-     * @returns { String } The translated value of the label
-     */
-    const formatLabel = (value) => {
-      if (value === "Energy") return "Energie"
-      if (value === "Strength") return "Force"
-      if (value === "Speed") return "Vitesse"
-      if (value === "Intensity") return "Intensité"
-      return value
-    }
-
     return (
       <Text
         {...rest}
@@ -61,32 +65,40 @@ const ChartPerformances = ({ data }) => {
   }
 
   return (
-    <>
-      <ResponsiveContainer width="100%" height="100%">
-        <RadarChart outerRadius={90} data={[...data.data].reverse()}>
-          <PolarGrid radialLines={false} />
-          <PolarAngleAxis
-            dataKey="kind"
-            tick={(props) => renderPolarAngleAxis(props)}
-          />
-          <PolarRadiusAxis tickCount={6} tick={false} axisLine={false} />
-          <Radar
-            dataKey="value"
-            stroke="#FF0101"
-            fill="#FF0101"
-            fillOpacity={0.7}
-          />
-        </RadarChart>
-      </ResponsiveContainer>
-    </>
+    <ResponsiveContainer width="100%" height="100%">
+      <RadarChart outerRadius={90} data={[...data.data].reverse()}>
+        <PolarGrid radialLines={false} />
+        <PolarAngleAxis
+          dataKey="kind"
+          tick={(props) => renderPolarAngleAxis(props)}
+        />
+        <PolarRadiusAxis tickCount={6} tick={false} axisLine={false} />
+        <Radar
+          dataKey="value"
+          stroke="#FF0101"
+          fill="#FF0101"
+          fillOpacity={0.7}
+        />
+      </RadarChart>
+    </ResponsiveContainer>
   )
 }
 
 ChartPerformances.propTypes = {
   /**
-   * Data to be displayed in the chart
+   * Object containing the performance data.
+   * - `kind`: An object mapping numeric keys to performance metric names.
+   * - `data`: An array of objects with `kind` (number) and `value` (number).
    */
-  data: PropTypes.object.isRequired,
+  data: PropTypes.shape({
+    kind: PropTypes.object.isRequired,
+    data: PropTypes.arrayOf(
+      PropTypes.shape({
+        kind: PropTypes.number.isRequired,
+        value: PropTypes.number.isRequired,
+      })
+    ).isRequired,
+  }).isRequired,
 }
 
 export default ChartPerformances

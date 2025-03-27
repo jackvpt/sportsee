@@ -1,26 +1,26 @@
 @use "../../styles/utils/mixins" as *;
 @use "../../styles/utils/variables" as *;
 
-h1{
-  font-size:48px;
+h1 {
+  font-size: 48px;
   margin-bottom: 20px;
 }
 
-h2{
-  font-size:18px;
-  font-weight:400;
+h2 {
+  font-size: 18px;
+  font-weight: 400;
 }
 
-h3{
-  position:absolute;
-  font-size:15px;
+h3 {
+  position: absolute;
+  font-size: 15px;
 }
 
-.container__user{
+.home__user {
   margin: 20px 0;
-  padding:10px;
+  padding: 10px;
   background: black;
-  color:white;
+  color: white;
   border-radius: 10px;
   text-align: center;
 }

@@ -17,17 +17,17 @@ SportSee est une application de tableau de bord permettant aux utilisateurs de s
 - Interface utilisateur réactive et moderne
 
 ## Prérequis
-- Avant de commencer, assurez-vous d'avoir les logiciels suivants installés sur votre machine :
+Les logiciels suivants doivent être installés :
 - Node.js
 - npm ou yarn pour la gestion des dépendances
 
 ## Installation du back-end
 - Cloner le dépot Git fourni par OpenClassRooms
-- Suivre les instructions du Readme.md:
+- Suivre les instructions du Readme.md :
     - Installer les dépendances: `npm install` ou `yarn`
     - Lancer le back-end: `npm start`
     - Le back-end est accessible à l'URL `http://localhost:3000/`
-- URL disponibles:
+- URL disponibles :
     - `http://localhost:3000/user/${userId}`: récupère les informations de l'utilisateur
     - `http://localhost:3000/user/${userId}/activity`: récupère les activités de l'utilisateur
     - `http://localhost:3000/user/${userId}/average-sessions`: récupère les durées moyennes des sessions

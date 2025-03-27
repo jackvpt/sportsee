@@ -1,13 +1,22 @@
 import React from "react"
 import "./Header.scss"
-import { Link, NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import logo from "../../assets/images/logo_sportsee.png"
 
+/**
+ * Renders the main navigation header of the application.
+ *
+ * @category Components
+ * @component
+ * @returns {React.Component} A React component displaying the header with navigation links.
+ */
 const Header = () => {
   return (
     <header>
-      <img src={logo} alt="logo sportsee"></img>
+      {/* Logo of the application */}
+      <img src={logo} alt="Logo SportSee"></img>
 
+      {/* Navigation menu */}
       <nav className="navbar">
         <NavLink
           className={({ isActive }) =>
@@ -21,7 +30,7 @@ const Header = () => {
           className={({ isActive }) =>
             isActive ? "navbar__link--active" : "navbar__link"
           }
-          to="/profile" // Links to About page
+          to="/profile" // Links to Profile page
         >
           Profil
         </NavLink>
@@ -29,7 +38,7 @@ const Header = () => {
           className={({ isActive }) =>
             isActive ? "navbar__link--active" : "navbar__link"
           }
-          to="/settings" // Links to About page
+          to="/settings" // Links to Settings page
         >
           Réglage
         </NavLink>
@@ -37,7 +46,7 @@ const Header = () => {
           className={({ isActive }) =>
             isActive ? "navbar__link--active" : "navbar__link"
           }
-          to="/community" // Links to About page
+          to="/community" // Links to Community page
         >
           Communauté
         </NavLink>

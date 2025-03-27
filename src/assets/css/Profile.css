@@ -1,5 +1,3 @@
-/* Responsive */
-/* Responsive */
 h1 {
   font-size: 48px;
   margin-bottom: 20px;
@@ -17,26 +15,43 @@ h2 {
 .container__dashboard {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   margin-top: 80px;
 }
 .container__dashboard__charts {
+  width: 78%;
   display: flex;
   flex-direction: column;
+  gap: 20px;
 }
-.container__dashboard__charts__dailyActivity {
+.container__dashboard__charts .dailyActivity {
   background: #fbfbfb;
   border-radius: 5px;
   padding: 20px;
-  width: 800px;
-  height: 400px;
+  height: 320px;
 }
-.container__dashboard__charts__miniCharts {
+.container__dashboard__charts .miniCharts {
   display: flex;
   flex-direction: row;
+  gap: 20px;
 }
-.container__dashboard__charts__miniCharts__averageDuration {
+.container__dashboard__charts .miniCharts__chart {
   width: 33%;
-  height: 280px;
-  background: red;
+  height: 260px;
   border-radius: 5px;
+}
+.container__dashboard__charts .miniCharts .averageDuration {
+  background: red;
+}
+.container__dashboard__charts .miniCharts .performances {
+  background-color: #282d30;
+}
+.container__dashboard__charts .miniCharts .score {
+  background-color: #fbfbfb;
+}
+.container__dashboard__keyDatas {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }/*# sourceMappingURL=Profile.css.map */
