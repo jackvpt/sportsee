@@ -3,7 +3,7 @@ import "./Profile.scss"
 import { useState, useEffect } from "react"
 import { useParams, Navigate } from "react-router"
 import {
-  fetchUsers,
+  fetchUserByUserID,
   fetchSessionsByUserId,
   fetchActivitiesByUserId,
   fetchPerformancesByUserId,
@@ -19,7 +19,7 @@ const Profile = () => {
   let { userId } = useParams()
   userId = Number(userId)
 
-  const [users, setUsers] = useState([])
+  const [user, setUser] = useState(null)
   const [sessions, setSessions] = useState([])
   const [activities, setActivities] = useState([])
   const [performances, setPerformances] = useState([])
@@ -33,14 +33,14 @@ const Profile = () => {
       setIsError(false)
 
       try {
-        const [usersData, sessionsData, activitiesData, performancesData] =
+        const [userData, sessionsData, activitiesData, performancesData] =
           await Promise.all([
-            fetchUsers(),
+            fetchUserByUserID(userId),
             fetchSessionsByUserId(userId),
             fetchActivitiesByUserId(userId),
             fetchPerformancesByUserId(userId),
           ])
-        setUsers(usersData)
+        setUser(userData)
         setSessions(sessionsData.sessions)
         setActivities(activitiesData.sessions)
         setPerformances(performancesData)
@@ -60,13 +60,6 @@ const Profile = () => {
     return (
       <p>❌ Une erreur est survenue lors du chargement des utilisateurs.</p>
     )
-
-  let user = null
-
-  // Get user based on id
-  if (users) {
-    user = users.find((element) => element.id === userId)
-  }
 
   if (!user) {
     return <Navigate to="*" /> // Navigate to Error page
