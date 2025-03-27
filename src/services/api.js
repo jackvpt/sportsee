@@ -252,18 +252,3 @@ async function fetchMockPerformances(userId) {
     throw error
   }
 }
-
-/**
- * Fetches user performance data by user ID from the mock API.
- *
- * @async
- * @param {number} userId - The ID of the user.
- * @returns {Promise<PerformancesModel>} A promise resolving to a PerformancesModel instance.
- * @throws {Error} Throws an error if the request fails or no data is found.
- */
-export async function fetchPerformancesByUserId0(userId) {
-  const response = await fetch("/__mocks__/performances.json")
-  const data = await response.json()
-  const performancesByUserId = data.find((element) => element.userId === userId)
-  return new PerformancesModel({ data: performancesByUserId })
-}

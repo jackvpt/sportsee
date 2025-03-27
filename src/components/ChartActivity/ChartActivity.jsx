@@ -53,7 +53,7 @@ const ChartActivity = ({ data }) => {
             tick={{ fill: "#9B9EAC" }}
             tickLine={false}
             axisLine={false}
-            domain={["auto", "dataMax + 2"]}
+            domain={["dataMin-2", "dataMax + 2"]}
             tickCount={3}
           />
           <YAxis yAxisId="calories" hide />
@@ -75,12 +75,11 @@ const ChartActivity = ({ data }) => {
             fill="#E60000"
             radius={[3, 3, 0, 0]}
           />
-<Legend
-  content={<ActivityLegend />}
-  verticalAlign="top"
-  align="right"
-/>
-          ;
+          <Legend
+            content={<ActivityLegend />}
+            verticalAlign="top"
+            align="right"
+          />
         </BarChart>
       </ResponsiveContainer>
     </>
