@@ -41,6 +41,8 @@ Les logiciels suivants doivent être installés :
 
 
 ## Dépendances utilisées
+- **jsdoc**: ^4.0.4
+- **prop-types**: ^15.8.1
 - **react**: ^19.0.0
 - **react-dom**: ^19.0.0,
 - **react-router**: ^7.4.0
