@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: services/api.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: services/api.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import UserModel from "../models/UserModel"
+import SessionsModel from "../models/SessionsModel"
+import ActivitiesModel from "../models/ActivitiesModel"
+import PerformancesModel from "../models/PerformancesModel"
+
+/**
+ * Fetches a user by their ID from the local API.
+ * If no data is found, it falls back to fetching mock data.
+ * @async
+ * @function fetchUserByUserID
+ * @param {string} userId - The ID of the user to retrieve.
+ * @returns {Promise&lt;UserModel>} A promise resolving to a UserModel instance containing the user's data.
+ * @throws {Error} Throws an error if both fetch attempts fail.
+ */
+export async function fetchUserByUserID(userId) {
+  try {
+    // Attempt to fetch from local API
+    const response = await fetch(`http://localhost:3000/user/${userId}`)
+    // If the response is not OK, throw an error
+    if (!response.ok)
+      throw new Error(`Request failed with status: ${response.status}`)
+    const data = await response.json()
+
+    // If the API returns an empty response or user is not found, fallback to mock data
+    if (!data || (Array.isArray(data) &amp;&amp; data.length === 0)) {
+      console.warn(
+        `User ${userId} not found in local API. Fetching from mock data.`
+      )
+      return fetchMockUser(userId)
+    }
+    console.log("User data from API >>>", data)
+    return new UserModel({ data: data.data })
+  } catch (error) {
+    console.error(`Error fetching user data from local API: ${error.message}`)
+    return fetchMockUser(userId) // Fallback to mock data
+  }
+}
+
+/**
+ * Fetches a user from mock data if not found in the local API.
+ * @async
+ * @function fetchMockUser
+ * @param {string} userId - The ID of the user to retrieve.
+ * @returns {Promise&lt;UserModel>} A promise resolving to a UserModel instance containing the user's data.
+ * @throws {Error} Throws an error if the mock data request fails.
+ */
+async function fetchMockUser(userId) {
+  try {
+    const response = await fetch("/__mocks__/users.json")
+    if (!response.ok) throw new Error("Mock data request failed")
+    const data = await response.json()
+    const user = data.find((user) => user.id === userId)
+
+    if (!user) throw new Error(`User ${userId} not found in mock data.`)
+    console.log("User data from mock >>>", data)
+
+    return new UserModel({ data: user })
+  } catch (error) {
+    console.error(`Error fetching user data from mock data: ${error.message}`)
+    throw error
+  }
+}
+
+/**
+ * Fetches a user sessions by their ID from the local API.
+ * If no data is found, it falls back to fetching mock data.
+ * @async
+ * @function fetchSessionsByUserId
+ * @param {string} userId - The ID of the user to retrieve.
+ * @returns {Promise&lt;SessionsModel>} A promise resolving to a SessionModel instance containing the user's data.
+ * @throws {Error} Throws an error if both fetch attempts fail.
+ */
+export async function fetchSessionsByUserId(userId) {
+  try {
+    // Attempt to fetch from local API
+    const response = await fetch(
+      `http://localhost:3000/user/${userId}/average-sessions`
+    )
+    // If the response is not OK, throw an error
+    if (!response.ok)
+      throw new Error(`Request failed with status: ${response.status}`)
+    const data = await response.json()
+
+    // If the API returns an empty response or user is not found, fallback to mock data
+    if (!data || (Array.isArray(data) &amp;&amp; data.length === 0)) {
+      console.warn(
+        `User ${userId} not found in local API. Fetching from mock data.`
+      )
+      return fetchMockSessions(userId)
+    }
+    console.log("Sessions data from API >>>", data)
+    return new SessionsModel({ data: data.data })
+  } catch (error) {
+    console.error(
+      `Error fetching user sessions from local API: ${error.message}`
+    )
+    return fetchMockSessions(userId) // Fallback to mock data
+  }
+}
+
+/**
+ * Fetches a user sessions from mock data if not found in the local API.
+ * @async
+ * @function fetchMockSessions
+ * @param {string} userId - The ID of the user to retrieve.
+ * @returns {Promise&lt;SessionsModel>} A promise resolving to a UserModel instance containing the user's data.
+ * @throws {Error} Throws an error if the mock data request fails.
+ */
+async function fetchMockSessions(userId) {
+  try {
+    const response = await fetch("/__mocks__/sessions.json")
+    if (!response.ok) throw new Error("Mock data request failed")
+    const data = await response.json()
+    const sessions = data.find((session) => session.userId === userId)
+
+    if (!sessions) throw new Error(`User ${userId} not found in mock data.`)
+    console.log("Sessions data from mock >>>", data)
+
+    return new SessionsModel({ data: sessions })
+  } catch (error) {
+    console.error(
+      `Error fetching user sessions from mock data: ${error.message}`
+    )
+    throw error
+  }
+}
+
+/**
+ * Fetches a user sessions by their ID from the local API.
+ * If no data is found, it falls back to fetching mock data.
+ * @async
+ * @function fetchActivitiesByUserId
+ * @param {string} userId - The ID of the user to retrieve.
+ * @returns {Promise&lt;ActivitiesModel>} A promise resolving to a ActivitiesModel instance containing the user's data.
+ * @throws {Error} Throws an error if both fetch attempts fail.
+ */
+export async function fetchActivitiesByUserId(userId) {
+  try {
+    // Attempt to fetch from local API
+    const response = await fetch(
+      `http://localhost:3000/user/${userId}/activity`
+    )
+    // If the response is not OK, throw an error
+    if (!response.ok)
+      throw new Error(`Request failed with status: ${response.status}`)
+    const data = await response.json()
+
+    // If the API returns an empty response or user is not found, fallback to mock data
+    if (!data || (Array.isArray(data) &amp;&amp; data.length === 0)) {
+      console.warn(
+        `User ${userId} not found in local API. Fetching from mock data.`
+      )
+      return fetchMockActivities(userId)
+    }
+    console.log("Activities data from API >>>", data)
+    return new ActivitiesModel({ data: data.data })
+  } catch (error) {
+    console.error(
+      `Error fetching user activities from local API: ${error.message}`
+    )
+    return fetchMockActivities(userId) // Fallback to mock data
+  }
+}
+
+/**
+ * Fetches a user sessions from mock data if not found in the local API.
+ * @async
+ * @function fetchMockActivities
+ * @param {string} userId - The ID of the user to retrieve.
+ * @returns {Promise&lt;ActivitiesModel>} A promise resolving to a ActivitiesModel instance containing the user's data.
+ * @throws {Error} Throws an error if the mock data request fails.
+ */
+async function fetchMockActivities(userId) {
+  try {
+    const response = await fetch("/__mocks__/activities.json")
+    if (!response.ok) throw new Error("Mock data request failed")
+    const data = await response.json()
+    const activities = data.find((activity) => activity.userId === userId)
+
+    if (!activities) throw new Error(`User ${userId} not found in mock data.`)
+    console.log("Activities data from mock >>>", data)
+
+    return new ActivitiesModel({ data: activities })
+  } catch (error) {
+    console.error(
+      `Error fetching user activities from mock data: ${error.message}`
+    )
+    throw error
+  }
+}
+
+/**
+ * Fetches a user performances by their ID from the local API.
+ * If no data is found, it falls back to fetching mock data.
+ * @async
+ * @function fetchPerformancesByUserId
+ * @param {string} userId - The ID of the user to retrieve.
+ * @returns {Promise&lt;PerformancesModel>} A promise resolving to a PerformancesModel instance containing the user's data.
+ * @throws {Error} Throws an error if both fetch attempts fail.
+ */
+export async function fetchPerformancesByUserId(userId) {
+  try {
+    // Attempt to fetch from local API
+    const response = await fetch(
+      `http://localhost:3000/user/${userId}/performance`
+    )
+    // If the response is not OK, throw an error
+    if (!response.ok)
+      throw new Error(`Request failed with status: ${response.status}`)
+    const data = await response.json()
+
+    // If the API returns an empty response or user is not found, fallback to mock data
+    if (!data || (Array.isArray(data) &amp;&amp; data.length === 0)) {
+      console.warn(
+        `User ${userId} not found in local API. Fetching from mock data.`
+      )
+      return fetchMockPerformances(userId)
+    }
+    console.log("Performances data from API >>>", data)
+    return new PerformancesModel({ data: data.data })
+  } catch (error) {
+    console.error(
+      `Error fetching user performances from local API: ${error.message}`
+    )
+    return fetchMockPerformances(userId) // Fallback to mock data
+  }
+}
+
+/**
+ * Fetches a user performances from mock data if not found in the local API.
+ * @async
+ * @function fetchMockPerformances
+ * @param {string} userId - The ID of the user to retrieve.
+ * @returns {Promise&lt;PerformancesModel>} A promise resolving to a PerformancesModel instance containing the user's data.
+ * @throws {Error} Throws an error if the mock data request fails.
+ */
+async function fetchMockPerformances(userId) {
+  try {
+    const response = await fetch("/__mocks__/performances.json")
+    if (!response.ok) throw new Error("Mock data request failed")
+    const data = await response.json()
+    const performances = data.find((performance) => performance.userId === userId)
+
+    if (!performances) throw new Error(`User ${userId} not found in mock data.`)
+    console.log("Performances data from mock >>>", data)
+
+    return new PerformancesModel({ data: performances })
+  } catch (error) {
+    console.error(
+      `Error fetching user performances from mock data: ${error.message}`
+    )
+    throw error
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module.html#.exports">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ActivityLegend">ActivityLegend</a></li><li><a href="global.html#ActivityToolTip">ActivityToolTip</a></li><li><a href="global.html#AverageDurationToolTip">AverageDurationToolTip</a></li><li><a href="global.html#ChartActivity">ChartActivity</a></li><li><a href="global.html#ChartAverageDuration">ChartAverageDuration</a></li><li><a href="global.html#ChartPerformances">ChartPerformances</a></li><li><a href="global.html#ChartScore">ChartScore</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#KeyDataCard">KeyDataCard</a></li><li><a href="global.html#Loader">Loader</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#fetchActivitiesByUserId">fetchActivitiesByUserId</a></li><li><a href="global.html#fetchMockActivities">fetchMockActivities</a></li><li><a href="global.html#fetchMockPerformances">fetchMockPerformances</a></li><li><a href="global.html#fetchMockSessions">fetchMockSessions</a></li><li><a href="global.html#fetchMockUser">fetchMockUser</a></li><li><a href="global.html#fetchPerformancesByUserId">fetchPerformancesByUserId</a></li><li><a href="global.html#fetchSessionsByUserId">fetchSessionsByUserId</a></li><li><a href="global.html#fetchUserByUserID">fetchUserByUserID</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Mar 28 2025 10:29:22 GMT+0100 (heure normale d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

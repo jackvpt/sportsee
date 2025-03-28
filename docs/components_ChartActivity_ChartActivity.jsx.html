@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/ChartActivity/ChartActivity.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/ChartActivity/ChartActivity.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react"
+import {
+  XAxis,
+  Tooltip,
+  BarChart,
+  CartesianGrid,
+  YAxis,
+  Bar,
+  Legend,
+  ResponsiveContainer,
+} from "recharts"
+import ActivityToolTip from "../ActivityToolTip/ActivityToolTip"
+import ActivityLegend from "../ActivityLegend/ActivityLegend"
+import PropTypes from "prop-types"
+
+/**
+ * ChartActivity component - Displays a bar chart representing daily activity data.
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {Array} props.data - The dataset containing activity details
+ * @returns {JSX.Element} A bar chart visualizing user activity
+ */
+const ChartActivity = ({ data }) => {
+  if (!data || data.length === 0) {
+    return &lt;p>Aucune donnée disponible.&lt;/p>
+  }
+
+  return (
+    &lt;>
+      &lt;ResponsiveContainer width="100%" height="100%">
+        &lt;BarChart data={data} barSize={7} barGap={8}>
+          &lt;text
+            x="30"
+            y="15"
+            textAnchor="start"
+            dominantBaseline="middle"
+            style={{ fontSize: "16px", fill: "#20253A" }}
+          >
+            Activité quotidienne
+          &lt;/text>
+          &lt;CartesianGrid strokeDasharray="3" vertical={false} />
+          &lt;XAxis
+            dataKey="day"
+            tick={{ fill: "#9B9EAC" }}
+            tickLine={false}
+            stroke="#DEDEDE"
+            strokeWidth={2}
+            tickMargin={16}
+            tickFormatter={(day) => {
+              const date = new Date(day)
+              return isNaN(date) ? day : date.getDate()
+            }}
+          />
+          &lt;YAxis
+            yAxisId="kilogram"
+            orientation="right"
+            tickMargin={30}
+            tick={{ fill: "#9B9EAC" }}
+            tickLine={false}
+            axisLine={false}
+            domain={["dataMin-2", "dataMax + 2"]}
+            tickCount={3}
+          />
+          &lt;YAxis yAxisId="calories" hide />
+          &lt;Tooltip
+            content={&lt;ActivityToolTip />}
+            cursor={{ fill: "rgba(196, 196, 196, 0.5)" }}
+          />
+          &lt;Bar
+            name="Poids (kg)"
+            dataKey="kilogram"
+            yAxisId="kilogram"
+            fill="#282D30"
+            radius={[3, 3, 0, 0]}
+          />
+          &lt;Bar
+            name="Calories brûlées (kCal)"
+            dataKey="calories"
+            yAxisId="calories"
+            fill="#E60000"
+            radius={[3, 3, 0, 0]}
+          />
+          &lt;Legend
+            content={&lt;ActivityLegend />}
+            verticalAlign="top"
+            align="right"
+          />
+        &lt;/BarChart>
+      &lt;/ResponsiveContainer>
+    &lt;/>
+  )
+}
+
+ChartActivity.propTypes = {
+  //Data to be displayed in the chart
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      day: PropTypes.string.isRequired,
+      kilogram: PropTypes.number.isRequired,
+      calories: PropTypes.number.isRequired,
+    })
+  ).isRequired,
+}
+
+export default ChartActivity
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module.html#.exports">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ActivityLegend">ActivityLegend</a></li><li><a href="global.html#ActivityToolTip">ActivityToolTip</a></li><li><a href="global.html#AverageDurationToolTip">AverageDurationToolTip</a></li><li><a href="global.html#ChartActivity">ChartActivity</a></li><li><a href="global.html#ChartAverageDuration">ChartAverageDuration</a></li><li><a href="global.html#ChartPerformances">ChartPerformances</a></li><li><a href="global.html#ChartScore">ChartScore</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#KeyDataCard">KeyDataCard</a></li><li><a href="global.html#Loader">Loader</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#fetchActivitiesByUserId">fetchActivitiesByUserId</a></li><li><a href="global.html#fetchMockActivities">fetchMockActivities</a></li><li><a href="global.html#fetchMockPerformances">fetchMockPerformances</a></li><li><a href="global.html#fetchMockSessions">fetchMockSessions</a></li><li><a href="global.html#fetchMockUser">fetchMockUser</a></li><li><a href="global.html#fetchPerformancesByUserId">fetchPerformancesByUserId</a></li><li><a href="global.html#fetchSessionsByUserId">fetchSessionsByUserId</a></li><li><a href="global.html#fetchUserByUserID">fetchUserByUserID</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Mar 28 2025 10:29:22 GMT+0100 (heure normale d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

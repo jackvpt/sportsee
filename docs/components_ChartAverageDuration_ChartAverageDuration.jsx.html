@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/ChartAverageDuration/ChartAverageDuration.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/ChartAverageDuration/ChartAverageDuration.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {
+  LineChart,
+  Line,
+  XAxis,
+  Tooltip,
+  YAxis,
+  ResponsiveContainer,
+  Rectangle,
+} from "recharts"
+import PropTypes from "prop-types"
+import AverageDurationToolTip from "../AverageDurationToolTip/AverageDurationToolTip"
+
+/**
+ * ChartAverageDuration component - Displays a line chart showing the average session duration per day.
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {Array} props.data - Array of session duration data
+ * @returns {JSX.Element} A line chart visualizing the average session duration
+ */
+const ChartAverageDuration = ({ data }) => {
+  /**
+   * Formats the X-axis labels based on the day number.
+   *
+   * @param {number} value - Day number (1-7)
+   * @returns {string} Corresponding day abbreviation
+   */
+  const formatLabel = (value) => {
+    const days = ["", "L", "M", "M", "J", "V", "S", "D"]
+    return days[value] || value
+  }
+
+  /**
+   * Custom cursor component for the chart.
+   *
+   * @param {Object} props - Cursor properties
+   * @param {Array} props.points - Data points
+   * @param {number} props.width - Cursor width
+   * @returns {JSX.Element} A customized cursor rectangle
+   */
+  const CustomCursor = (props) => {
+    const { points, width } = props
+    const { x } = points[0]
+    return (
+      &lt;Rectangle
+        fill="rgba(0,0,0,0.1)"
+        x={x}
+        y={-20}
+        width={width + 100}
+        height={1000}
+      />
+    )
+  }
+
+  /**
+   * Custom active dot component for the chart.
+   *
+   * @param {Object} props - Dot properties
+   * @param {number} props.cx - X-coordinate
+   * @param {number} props.cy - Y-coordinate
+   * @returns {JSX.Element} A customized dot
+   */
+  const CustomActiveDot = (props) => {
+    const { cx, cy } = props
+    return (
+      &lt;g>
+        &lt;circle
+          cx={cx}
+          cy={cy}
+          r={8}
+          fill="rgb(255,255,255,0.2)"
+          stroke="none"
+        />
+        &lt;circle cx={cx} cy={cy} r={4} fill="white" stroke="none" />
+      &lt;/g>
+    )
+  }
+
+  const title = "Durée moyenne des\nsessions"
+  const lines = title.split("\n")
+  return (
+    &lt;>
+      &lt;ResponsiveContainer width="100%" height="100%" className={"center"}>
+        &lt;LineChart
+          data={data}
+          margin={{ top: 40, right: 15, bottom: 25, left: 15 }}
+        >
+          {/* Chart Title */}
+          &lt;text
+            textAnchor="start"
+            dominantBaseline="middle"
+            style={{ fontSize: "15px", fill: "rgba(255,255,255,0.5)" }}
+          >
+            {lines.map((line, index) => (
+              &lt;tspan key={index} x="30" y="30" dy={index === 0 ? 0 : 20}>
+                {line}
+              &lt;/tspan>
+            ))}
+          &lt;/text>
+
+          {/* Line Chart */}
+          &lt;Line
+            type="natural"
+            dataKey="sessionLength"
+            stroke="url(#colorUv)"
+            strokeWidth={2}
+            activeDot={&lt;CustomActiveDot />}
+            dot={false}
+          />
+
+          {/* X Axis */}
+          &lt;XAxis
+            dataKey="day"
+            axisLine={false}
+            tickLine={false}
+            tick={{
+              fill: "rgba(255,255,255,0.5)",
+              fontSize: "12px",
+            }}
+            tickFormatter={formatLabel}
+            tickMargin={15}
+          />
+
+          {/* Tooltip */}
+          &lt;Tooltip
+            content={&lt;AverageDurationToolTip />}
+            cursor={&lt;CustomCursor />}
+          />
+
+          {/* Y Axis */}
+          &lt;YAxis hide domain={["dataMin-10", "dataMax+10"]} />
+
+          {/* Gradient for Line */}
+          &lt;defs>
+            &lt;linearGradient id="colorUv" x1="0%" y1="0" x2="100%" y2="0">
+              &lt;stop offset="0%" stopColor="rgba(255, 255, 255, 0.3)" />
+              &lt;stop offset="20%" stopColor="rgba(255, 255, 255, 0.4)" />
+              &lt;stop offset="40%" stopColor="rgba(255, 255, 255, 0.5)" />
+              &lt;stop offset="60%" stopColor="rgba(255, 255, 255, 0.6)" />
+              &lt;stop offset="100%" stopColor="rgba(255, 255, 255, 1)" />
+            &lt;/linearGradient>
+          &lt;/defs>
+        &lt;/LineChart>
+      &lt;/ResponsiveContainer>
+    &lt;/>
+  )
+}
+
+ChartAverageDuration.propTypes = {
+  // The dataset containing session duration data
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+}
+
+export default ChartAverageDuration
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module.html#.exports">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ActivityLegend">ActivityLegend</a></li><li><a href="global.html#ActivityToolTip">ActivityToolTip</a></li><li><a href="global.html#AverageDurationToolTip">AverageDurationToolTip</a></li><li><a href="global.html#ChartActivity">ChartActivity</a></li><li><a href="global.html#ChartAverageDuration">ChartAverageDuration</a></li><li><a href="global.html#ChartPerformances">ChartPerformances</a></li><li><a href="global.html#ChartScore">ChartScore</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#KeyDataCard">KeyDataCard</a></li><li><a href="global.html#Loader">Loader</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#fetchActivitiesByUserId">fetchActivitiesByUserId</a></li><li><a href="global.html#fetchMockActivities">fetchMockActivities</a></li><li><a href="global.html#fetchMockPerformances">fetchMockPerformances</a></li><li><a href="global.html#fetchMockSessions">fetchMockSessions</a></li><li><a href="global.html#fetchMockUser">fetchMockUser</a></li><li><a href="global.html#fetchPerformancesByUserId">fetchPerformancesByUserId</a></li><li><a href="global.html#fetchSessionsByUserId">fetchSessionsByUserId</a></li><li><a href="global.html#fetchUserByUserID">fetchUserByUserID</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Mar 28 2025 10:29:22 GMT+0100 (heure normale d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
