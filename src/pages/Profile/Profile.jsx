@@ -12,6 +12,7 @@ import ChartAverageDuration from "../../components/ChartAverageDuration/ChartAve
 import ChartPerformances from "../../components/ChartPerformances/ChartPerformances"
 import ChartScore from "../../components/ChartScore/ChartScore"
 import KeyDataCard from "../../components/KeyDataCard/KeyDataCard"
+import Loader from "../../components/Loader/Loader"
 
 /**
  * Profile page displaying user's performance, activity, and nutrition data.
@@ -20,7 +21,7 @@ import KeyDataCard from "../../components/KeyDataCard/KeyDataCard"
  * @returns {JSX.Element} The profile page with charts and key data.
  */
 const Profile = () => {
-  // Get id from Home page
+  // Get id from URL
   let { userId } = useParams()
   userId = Number(userId)
 
@@ -60,7 +61,7 @@ const Profile = () => {
     fetchData()
   }, [userId])
 
-  if (isLoading) return <p>⏳ Chargement des données...</p>
+  if (isLoading) return <Loader /> // Display loader while data is loading
   if (isError) return <p>❌ Une erreur est survenue lors du chargement.</p>
   if (!user) return <Navigate to="*" /> // Navigate to Error page if user not found
 
