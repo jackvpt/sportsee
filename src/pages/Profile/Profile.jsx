@@ -13,6 +13,7 @@ import ChartPerformances from "../../components/ChartPerformances/ChartPerforman
 import ChartScore from "../../components/ChartScore/ChartScore"
 import KeyDataCard from "../../components/KeyDataCard/KeyDataCard"
 import Loader from "../../components/Loader/Loader"
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage"
 
 /**
  * Profile page displaying user's performance, activity, and nutrition data.
@@ -62,7 +63,7 @@ const Profile = () => {
   }, [userId])
 
   if (isLoading) return <Loader /> // Display loader while data is loading
-  if (isError) return <p>❌ Une erreur est survenue lors du chargement.</p>
+  if (isError) return <ErrorMessage message="Une erreur est survenue lors du chargement" />
   if (!user) return <Navigate to="*" /> // Navigate to Error page if user not found
 
   return (
