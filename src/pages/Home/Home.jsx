@@ -22,7 +22,11 @@ export default function Home() {
       <h2>Choisissez le profil :</h2>
       <div className="home__users">
         {users.map((user) => (
-          <Link key={user.id} to={`/profile/${user.id}`} className="home__user-link">
+          <Link
+            key={user.id}
+            to={`/profile/${user.id}`}
+            className="home__user-link"
+          >
             <div className="home__user">{user.firstName}</div>
           </Link>
         ))}

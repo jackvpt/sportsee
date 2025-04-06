@@ -63,7 +63,8 @@ const Profile = () => {
   }, [userId])
 
   if (isLoading) return <Loader /> // Display loader while data is loading
-  if (isError) return <ErrorMessage message="Une erreur est survenue lors du chargement" />
+  if (isError)
+    return <ErrorMessage message="Une erreur est survenue lors du chargement" />
   if (!user) return <Navigate to="*" /> // Navigate to Error page if user not found
 
   return (

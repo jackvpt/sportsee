@@ -1,4 +1,4 @@
-import "./Loader.scss";
+import "./Loader.scss"
 
 /**
  * Loader component displaying a loading animation.
@@ -17,7 +17,7 @@ const Loader = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Loader;
+export default Loader

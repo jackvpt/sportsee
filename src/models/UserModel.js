@@ -4,7 +4,7 @@
 export default class UserModel {
   /**
    * Creates an instance of UserModel.
-   * 
+   *
    * @param {Object} data - The user data.
    * @param {number} data.id - The ID of the user.
    * @param {Object} data.userInfos - The user's personal information.

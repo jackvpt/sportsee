@@ -47,10 +47,8 @@ const KeyDataCard = ({ title, value, unit }) => {
 KeyDataCard.propTypes = {
   // The title of the key data (e.g., "Calories", "Protéines")
   title: PropTypes.string.isRequired,
-
   // The numerical value of the key data
   value: PropTypes.number.isRequired,
-
   // The unit of measurement (e.g., "kCal", "g")
   unit: PropTypes.string.isRequired,
 }

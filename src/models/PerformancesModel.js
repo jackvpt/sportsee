@@ -4,7 +4,7 @@
 export default class PerformancesModel {
   /**
    * Creates an instance of PerformancesModel.
-   * 
+   *
    * @param {Object} data - The performance data.
    * @param {number} data.userId - The ID of the user.
    * @param {Object} data.kind - An object mapping kind IDs to their corresponding labels.
@@ -29,7 +29,7 @@ export default class PerformancesModel {
      */
     this.data = data.data.map((data) => ({
       value: data.value,
-      kind: data.kind
+      kind: data.kind,
     }))
   }
 }

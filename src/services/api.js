@@ -8,7 +8,7 @@ import PerformancesModel from "../models/PerformancesModel"
  * If no data is found, it falls back to fetching mock data.
  * @async
  * @function fetchUserByUserID
- * @param {string} userId - The ID of the user to retrieve.
+ * @param {Number} userId - The ID of the user to retrieve.
  * @returns {Promise<UserModel>} A promise resolving to a UserModel instance containing the user's data.
  * @throws {Error} Throws an error if both fetch attempts fail.
  */
@@ -40,7 +40,7 @@ export async function fetchUserByUserID(userId) {
  * Fetches a user from mock data if not found in the local API.
  * @async
  * @function fetchMockUser
- * @param {string} userId - The ID of the user to retrieve.
+ * @param {Number} userId - The ID of the user to retrieve.
  * @returns {Promise<UserModel>} A promise resolving to a UserModel instance containing the user's data.
  * @throws {Error} Throws an error if the mock data request fails.
  */
@@ -66,7 +66,7 @@ async function fetchMockUser(userId) {
  * If no data is found, it falls back to fetching mock data.
  * @async
  * @function fetchSessionsByUserId
- * @param {string} userId - The ID of the user to retrieve.
+ * @param {Number} userId - The ID of the user to retrieve.
  * @returns {Promise<SessionsModel>} A promise resolving to a SessionModel instance containing the user's data.
  * @throws {Error} Throws an error if both fetch attempts fail.
  */
@@ -102,7 +102,7 @@ export async function fetchSessionsByUserId(userId) {
  * Fetches a user sessions from mock data if not found in the local API.
  * @async
  * @function fetchMockSessions
- * @param {string} userId - The ID of the user to retrieve.
+ * @param {Number} userId - The ID of the user to retrieve.
  * @returns {Promise<SessionsModel>} A promise resolving to a UserModel instance containing the user's data.
  * @throws {Error} Throws an error if the mock data request fails.
  */
@@ -130,7 +130,7 @@ async function fetchMockSessions(userId) {
  * If no data is found, it falls back to fetching mock data.
  * @async
  * @function fetchActivitiesByUserId
- * @param {string} userId - The ID of the user to retrieve.
+ * @param {Number} userId - The ID of the user to retrieve.
  * @returns {Promise<ActivitiesModel>} A promise resolving to a ActivitiesModel instance containing the user's data.
  * @throws {Error} Throws an error if both fetch attempts fail.
  */
@@ -166,7 +166,7 @@ export async function fetchActivitiesByUserId(userId) {
  * Fetches a user sessions from mock data if not found in the local API.
  * @async
  * @function fetchMockActivities
- * @param {string} userId - The ID of the user to retrieve.
+ * @param {Number} userId - The ID of the user to retrieve.
  * @returns {Promise<ActivitiesModel>} A promise resolving to a ActivitiesModel instance containing the user's data.
  * @throws {Error} Throws an error if the mock data request fails.
  */
@@ -194,7 +194,7 @@ async function fetchMockActivities(userId) {
  * If no data is found, it falls back to fetching mock data.
  * @async
  * @function fetchPerformancesByUserId
- * @param {string} userId - The ID of the user to retrieve.
+ * @param {Number} userId - The ID of the user to retrieve.
  * @returns {Promise<PerformancesModel>} A promise resolving to a PerformancesModel instance containing the user's data.
  * @throws {Error} Throws an error if both fetch attempts fail.
  */
@@ -230,7 +230,7 @@ export async function fetchPerformancesByUserId(userId) {
  * Fetches a user performances from mock data if not found in the local API.
  * @async
  * @function fetchMockPerformances
- * @param {string} userId - The ID of the user to retrieve.
+ * @param {Number} userId - The ID of the user to retrieve.
  * @returns {Promise<PerformancesModel>} A promise resolving to a PerformancesModel instance containing the user's data.
  * @throws {Error} Throws an error if the mock data request fails.
  */
@@ -239,7 +239,9 @@ async function fetchMockPerformances(userId) {
     const response = await fetch("/__mocks__/performances.json")
     if (!response.ok) throw new Error("Mock data request failed")
     const data = await response.json()
-    const performances = data.find((performance) => performance.userId === userId)
+    const performances = data.find(
+      (performance) => performance.userId === userId
+    )
 
     if (!performances) throw new Error(`User ${userId} not found in mock data.`)
     console.log("Performances data from mock >>>", data)

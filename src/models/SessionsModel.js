@@ -4,7 +4,7 @@
 export default class SessionsModel {
   /**
    * Creates an instance of SessionsModel.
-   * 
+   *
    * @param {Object} data - The session data.
    * @param {number} data.userId - The ID of the user.
    * @param {Array<{ day: string, sessionLength: number }>} data.sessions - The user's session details.
