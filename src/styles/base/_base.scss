@@ -1,3 +1,5 @@
+@use "../utils/mixins" as *;
+
 main {
   display: flex;
   flex-direction: row;
@@ -5,5 +7,9 @@ main {
 
 .section__main {
   margin: 0 auto;
-  padding: 50px 100px;
+  padding: 50px 50px;
+
+  @include responsive-large-desktop {
+    padding: 50px 100px;
+  }
 }

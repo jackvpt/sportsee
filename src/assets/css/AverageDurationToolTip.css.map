@@ -1,1 +1,1 @@
-{"version":3,"sources":["../../components/AverageDurationToolTip/AverageDurationToolTip.scss","AverageDurationToolTip.css"],"names":[],"mappings":"AAAA;EACI,aAAA;EACA,yBAAA;EACA,cAAA;EACA,cAAA;EACA,gBAAA;EACA,kBAAA;ACCJ","file":"AverageDurationToolTip.css"}
+{"version":3,"sources":["../../components/AverageDurationToolTip/AverageDurationToolTip.scss","AverageDurationToolTip.css"],"names":[],"mappings":"AAAA;EACE,aAAA;EACA,yBAAA;EACA,cAAA;EACA,cAAA;EACA,gBAAA;EACA,kBAAA;ACCF","file":"AverageDurationToolTip.css"}
