@@ -66,7 +66,7 @@ const ChartPerformances = ({ data }) => {
 
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <RadarChart outerRadius={90} data={[...data.data].reverse()}>
+      <RadarChart outerRadius="60%" data={[...data.data].reverse()}>
         <PolarGrid radialLines={false} />
         <PolarAngleAxis
           dataKey="kind"
