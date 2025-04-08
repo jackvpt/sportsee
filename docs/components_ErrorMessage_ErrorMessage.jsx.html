@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: models/PerformancesModel.js</title>
+    <title>JSDoc: Source: components/ErrorMessage/ErrorMessage.jsx</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: models/PerformancesModel.js</h1>
+    <h1 class="page-title">Source: components/ErrorMessage/ErrorMessage.jsx</h1>
 
     
 
@@ -26,41 +26,43 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Represents a user's performance data.
+            <pre class="prettyprint source linenums"><code>import "./ErrorMessage.scss"
+import errorIcon from "../../assets/images/icon_error.png"
+import { Link } from "react-router"
+import PropTypes from "prop-types"
+
+/**
+ * Displays an error message with an icon and a link to return to the homepage.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {string} props.message - The error message to display.
+ * @returns {JSX.Element} The rendered error message section.
  */
-export default class PerformancesModel {
-  /**
-   * Creates an instance of PerformancesModel.
-   *
-   * @param {Object} data - The performance data.
-   * @param {number} data.userId - The ID of the user.
-   * @param {Object} data.kind - An object mapping kind IDs to their corresponding labels.
-   * @param {Array&lt;{ value: number, kind: number }>} data.data - The performance data array.
-   */
-  constructor({ data }) {
-    /**
-     * The ID of the user.
-     * @type {number}
-     */
-    this.userId = data.userId
-
-    /**
-     * An object mapping kind IDs to their corresponding labels.
-     * @type {Object.&lt;number, string>}
-     */
-    this.kind = data.kind
-
-    /**
-     * An array of performance data objects.
-     * @type {Array&lt;{ value: number, kind: number }>}
-     */
-    this.data = data.data.map((data) => ({
-      value: data.value,
-      kind: data.kind,
-    }))
-  }
+const ErrorMessage = ({ message }) => {
+  return (
+    &lt;section className="container__error">
+      &lt;div className="container__error-message">
+        &lt;img
+          src={errorIcon}
+          alt="Error icon"
+          className="error-icon"
+          width={32}
+        />
+        &lt;p>{message}&lt;/p>
+      &lt;/div>
+      &lt;Link className="error__link" to="/" aria-label="Retour à l'accueil">
+        Retourner sur la page d'accueil
+      &lt;/Link>{" "}
+    &lt;/section>
+  )
 }
+
+ErrorMessage.propTypes = {
+  message: PropTypes.string.isRequired,
+}
+
+export default ErrorMessage
 </code></pre>
         </article>
     </section>

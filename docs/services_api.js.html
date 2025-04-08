@@ -36,7 +36,7 @@ import PerformancesModel from "../models/PerformancesModel"
  * If no data is found, it falls back to fetching mock data.
  * @async
  * @function fetchUserByUserID
- * @param {string} userId - The ID of the user to retrieve.
+ * @param {Number} userId - The ID of the user to retrieve.
  * @returns {Promise&lt;UserModel>} A promise resolving to a UserModel instance containing the user's data.
  * @throws {Error} Throws an error if both fetch attempts fail.
  */
@@ -68,7 +68,7 @@ export async function fetchUserByUserID(userId) {
  * Fetches a user from mock data if not found in the local API.
  * @async
  * @function fetchMockUser
- * @param {string} userId - The ID of the user to retrieve.
+ * @param {Number} userId - The ID of the user to retrieve.
  * @returns {Promise&lt;UserModel>} A promise resolving to a UserModel instance containing the user's data.
  * @throws {Error} Throws an error if the mock data request fails.
  */
@@ -94,7 +94,7 @@ async function fetchMockUser(userId) {
  * If no data is found, it falls back to fetching mock data.
  * @async
  * @function fetchSessionsByUserId
- * @param {string} userId - The ID of the user to retrieve.
+ * @param {Number} userId - The ID of the user to retrieve.
  * @returns {Promise&lt;SessionsModel>} A promise resolving to a SessionModel instance containing the user's data.
  * @throws {Error} Throws an error if both fetch attempts fail.
  */
@@ -130,7 +130,7 @@ export async function fetchSessionsByUserId(userId) {
  * Fetches a user sessions from mock data if not found in the local API.
  * @async
  * @function fetchMockSessions
- * @param {string} userId - The ID of the user to retrieve.
+ * @param {Number} userId - The ID of the user to retrieve.
  * @returns {Promise&lt;SessionsModel>} A promise resolving to a UserModel instance containing the user's data.
  * @throws {Error} Throws an error if the mock data request fails.
  */
@@ -158,7 +158,7 @@ async function fetchMockSessions(userId) {
  * If no data is found, it falls back to fetching mock data.
  * @async
  * @function fetchActivitiesByUserId
- * @param {string} userId - The ID of the user to retrieve.
+ * @param {Number} userId - The ID of the user to retrieve.
  * @returns {Promise&lt;ActivitiesModel>} A promise resolving to a ActivitiesModel instance containing the user's data.
  * @throws {Error} Throws an error if both fetch attempts fail.
  */
@@ -194,7 +194,7 @@ export async function fetchActivitiesByUserId(userId) {
  * Fetches a user sessions from mock data if not found in the local API.
  * @async
  * @function fetchMockActivities
- * @param {string} userId - The ID of the user to retrieve.
+ * @param {Number} userId - The ID of the user to retrieve.
  * @returns {Promise&lt;ActivitiesModel>} A promise resolving to a ActivitiesModel instance containing the user's data.
  * @throws {Error} Throws an error if the mock data request fails.
  */
@@ -222,7 +222,7 @@ async function fetchMockActivities(userId) {
  * If no data is found, it falls back to fetching mock data.
  * @async
  * @function fetchPerformancesByUserId
- * @param {string} userId - The ID of the user to retrieve.
+ * @param {Number} userId - The ID of the user to retrieve.
  * @returns {Promise&lt;PerformancesModel>} A promise resolving to a PerformancesModel instance containing the user's data.
  * @throws {Error} Throws an error if both fetch attempts fail.
  */
@@ -258,7 +258,7 @@ export async function fetchPerformancesByUserId(userId) {
  * Fetches a user performances from mock data if not found in the local API.
  * @async
  * @function fetchMockPerformances
- * @param {string} userId - The ID of the user to retrieve.
+ * @param {Number} userId - The ID of the user to retrieve.
  * @returns {Promise&lt;PerformancesModel>} A promise resolving to a PerformancesModel instance containing the user's data.
  * @throws {Error} Throws an error if the mock data request fails.
  */
@@ -267,7 +267,9 @@ async function fetchMockPerformances(userId) {
     const response = await fetch("/__mocks__/performances.json")
     if (!response.ok) throw new Error("Mock data request failed")
     const data = await response.json()
-    const performances = data.find((performance) => performance.userId === userId)
+    const performances = data.find(
+      (performance) => performance.userId === userId
+    )
 
     if (!performances) throw new Error(`User ${userId} not found in mock data.`)
     console.log("Performances data from mock >>>", data)
@@ -290,13 +292,13 @@ async function fetchMockPerformances(userId) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module.html#.exports">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ActivityLegend">ActivityLegend</a></li><li><a href="global.html#ActivityToolTip">ActivityToolTip</a></li><li><a href="global.html#AverageDurationToolTip">AverageDurationToolTip</a></li><li><a href="global.html#ChartActivity">ChartActivity</a></li><li><a href="global.html#ChartAverageDuration">ChartAverageDuration</a></li><li><a href="global.html#ChartPerformances">ChartPerformances</a></li><li><a href="global.html#ChartScore">ChartScore</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#KeyDataCard">KeyDataCard</a></li><li><a href="global.html#Loader">Loader</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#fetchActivitiesByUserId">fetchActivitiesByUserId</a></li><li><a href="global.html#fetchMockActivities">fetchMockActivities</a></li><li><a href="global.html#fetchMockPerformances">fetchMockPerformances</a></li><li><a href="global.html#fetchMockSessions">fetchMockSessions</a></li><li><a href="global.html#fetchMockUser">fetchMockUser</a></li><li><a href="global.html#fetchPerformancesByUserId">fetchPerformancesByUserId</a></li><li><a href="global.html#fetchSessionsByUserId">fetchSessionsByUserId</a></li><li><a href="global.html#fetchUserByUserID">fetchUserByUserID</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module.html#.exports">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ActivityLegend">ActivityLegend</a></li><li><a href="global.html#ActivityToolTip">ActivityToolTip</a></li><li><a href="global.html#AverageDurationToolTip">AverageDurationToolTip</a></li><li><a href="global.html#ChartActivity">ChartActivity</a></li><li><a href="global.html#ChartAverageDuration">ChartAverageDuration</a></li><li><a href="global.html#ChartPerformances">ChartPerformances</a></li><li><a href="global.html#ChartScore">ChartScore</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#ErrorMessage">ErrorMessage</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#KeyDataCard">KeyDataCard</a></li><li><a href="global.html#Loader">Loader</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#fetchActivitiesByUserId">fetchActivitiesByUserId</a></li><li><a href="global.html#fetchMockActivities">fetchMockActivities</a></li><li><a href="global.html#fetchMockPerformances">fetchMockPerformances</a></li><li><a href="global.html#fetchMockSessions">fetchMockSessions</a></li><li><a href="global.html#fetchMockUser">fetchMockUser</a></li><li><a href="global.html#fetchPerformancesByUserId">fetchPerformancesByUserId</a></li><li><a href="global.html#fetchSessionsByUserId">fetchSessionsByUserId</a></li><li><a href="global.html#fetchUserByUserID">fetchUserByUserID</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Mar 28 2025 10:29:22 GMT+0100 (heure normale d’Europe centrale)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Apr 08 2025 13:04:51 GMT+0200 (heure d’été d’Europe centrale)
 </footer>
 
 <script> prettyPrint(); </script>
